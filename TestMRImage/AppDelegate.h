@@ -17,6 +17,11 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property (nonatomic) BOOL isPhone;
+@property (nonatomic) BOOL isiOS7Plus;
+@property (nonatomic) BOOL isiOS8Plus;
+
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 

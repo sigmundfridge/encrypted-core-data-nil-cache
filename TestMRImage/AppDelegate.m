@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import <CoreData/CoreData.h>
+
 
 @interface AppDelegate ()
 
@@ -17,6 +19,28 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelVerbose];
+    NSLog(@"MR Version: %u",[MagicalRecord version]);
+    [MagicalRecord setupAutoMigratingCoreDataStack];
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"1111"];
+    [MagicalRecord setDefaultModelNamed:@"TestMRImage.momd"];
+
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        NSLog(@"iPAD");
+        self.isPhone = NO;
+    }
+    else {
+        NSLog(@"iPHone");
+        self.isPhone = YES;
+    }
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+        self.isiOS7Plus = YES;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            self.isiOS8Plus = YES;
+        }
+        else self.isiOS8Plus = NO;
+    }
+    else self.isiOS7Plus = NO;
     return YES;
 }
 

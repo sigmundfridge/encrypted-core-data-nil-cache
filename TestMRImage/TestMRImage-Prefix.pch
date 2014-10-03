@@ -1,0 +1,16 @@
+//
+//  TestMRImage-Prefix.pch
+//  TestMRImage
+//
+//  Created by Nicholas Jones on 03/10/2014.
+//  Copyright (c) 2014 sigf. All rights reserved.
+//
+
+#ifndef TestMRImage_TestMRImage_Prefix_pch
+#define TestMRImage_TestMRImage_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import "CoreData+MagicalRecord.h"
+
+#endif
