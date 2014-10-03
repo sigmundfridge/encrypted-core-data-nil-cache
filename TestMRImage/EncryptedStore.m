@@ -372,7 +372,7 @@ static NSString * const EncryptedStoreMetadataTableName = @"meta";
     // cache hit
     {
         NSIncrementalStoreNode *node = [nodeCache objectForKey:objectID];
-  //      if (node) { return node; }
+        if (node) { return node; }
     }
     
     // prepare values
