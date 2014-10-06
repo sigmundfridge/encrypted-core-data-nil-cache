@@ -8,6 +8,9 @@
 
 #import "MenuViewController.h"
 #import "SyncObject+CustomMethods.h"
+#import "Item+CustomMethods.h"
+#import "Image+CustomMethods.h"
+
 
 @interface MenuViewController ()
 - (IBAction)clearList:(id)sender;
@@ -37,6 +40,10 @@
 */
 
 - (IBAction)clearList:(id)sender {
-    [SyncObject MR_truncateAll];
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        [SyncObject MR_truncateAllInContext:localContext];
+        [Item MR_truncateAllInContext:localContext];
+        [Image MR_truncateAllInContext:localContext];
+    }];
 }
 @end

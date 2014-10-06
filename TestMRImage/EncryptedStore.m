@@ -372,11 +372,14 @@ static NSString * const EncryptedStoreMetadataTableName = @"meta";
     // cache hit
     {
         NSIncrementalStoreNode *node = [nodeCache objectForKey:objectID];
-        if (node) { return node; }
+        if (node) {
+            return node;
+        }
     }
     
     // prepare values
     NSEntityDescription *entity = [objectID entity];
+//    NSLog(@"ENTITY: %@", entity);
     NSMutableArray *columns = [NSMutableArray array];
     NSMutableArray *keys = [NSMutableArray array];
     NSMutableArray *typeJoins = [NSMutableArray array];
@@ -387,6 +390,8 @@ static NSString * const EncryptedStoreMetadataTableName = @"meta";
     
     // enumerate properties
     NSDictionary *properties = [entity propertiesByName];
+    NSLog(@"Properties: %@", properties);
+
     [properties enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSPropertyDescription *obj, BOOL *stop) {
         if ([obj isKindOfClass:[NSAttributeDescription class]]) {
             [columns addObject:[NSString stringWithFormat:@"%@.%@", table, key]];
@@ -436,6 +441,8 @@ static NSString * const EncryptedStoreMetadataTableName = @"meta";
     if (sqlite3_step(statement) == SQLITE_ROW) {
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         NSMutableArray * allProperties = [NSMutableArray new];
+        NSMutableDictionary *nilDictionary = [NSMutableDictionary dictionary];
+        NSMutableArray * nilProperties = [NSMutableArray new];
         
         __block NSUInteger offset = 0;
         
@@ -451,6 +458,9 @@ static NSString * const EncryptedStoreMetadataTableName = @"meta";
             if (value) {
                 [dictionary setObject:value forKey:obj];
                 [allProperties addObject:property];
+            }
+            else {
+                [nilProperties addObject:property];
             }
         }];
         sqlite3_finalize(statement);
